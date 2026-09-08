@@ -1,0 +1,199 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<script type="text/javascript" src="/front_m/mig/libs/jquery-3.7.1.js"></script>
+	<!--<script src="https://code.jquery.com/jquery-migrate-3.4.1.min.js"></script>	-->
+	<!-- 기존 CSS/JS 라이브러리 그대로 유지 -->
+	<!--<script type="text/javascript" src="/front_m/mig/libs/jquery-1.12.3.js"></script>-->
+	<script type="text/javascript" src="/front_m/mig/libs/jquery.extend.js"></script>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/libs/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/styles/reset.css"/>
+	<script type="text/javascript" src="/front_m/mig/scripts/reset.js"></script>
+	<script type="text/javascript" src="/front_m/mig/scripts/cssAddRules.js"></script>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/styles/common.css"/>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/layout/header.css"/>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/layout/lnb.css"/>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/layout/footer.css"/>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/layout/gnb.css"/>
+	<script type="text/javascript" src="/front_m/mig/libs/jquery.cookie.js"></script>
+	<script type="text/javascript" src="/front_m/mig/libs/jquery.browser.js"></script>
+	<script type="text/javascript" src="/front_m/mig/libs/jQuery.dotdotdot/dist/jquery.dotdotdot.js"></script>
+	<script type="text/javascript" src="/front_m/mig/scripts/publisher.js "></script>
+	<script type="text/javascript" src="/front_m/mig/scripts/default.js"></script>
+	<script type="text/javascript" src="/front_m/mig/layout/header.js"></script>
+	<script type="text/javascript" src="/front_m/mig/layout/gnb.js"></script>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/styles/UI.css"/>
+	<script type="text/javascript" src="/front_m/mig/scripts/UI.js"></script>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/libs/printUtil/printUtil.css"/>
+	<script type="text/javascript" src="/front_m/mig/libs/printUtil/printUtil.js"></script>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/libs/wax_util/wax_util.css"/>
+	<script type="text/javascript" src="/front_m/mig/libs/wax_util/wax_util.js"></script>
+	<link rel="stylesheet" type="text/css" href="/front_m/mig/board_m/board_m.css"/>
+	<script type="text/javascript" src="/front_m/mig/board_m/board_m.js"></script>
+	<title>홍익대학교</title>
+	<script type="text/javascript" src="/js/common.js"></script>
+
+	<script>
+		function funLoad(){
+			var Cheight = $(window).height();
+			$('#contents').css({'height':Cheight+'px'});
+		}
+		window.onload = funLoad;
+		window.onresize = funLoad;
+	</script>
+	<script>
+		// [2024-02-20] 홈페이지 높이
+        window.onload = function() {
+            var high = $('table').height();
+			window.parent.postMessage(high, "*");
+        };
+	</script>
+</head>
+<body>
+<div class="page" data-mc="004008" style="margin:0px; width:100vw;">
+	<div class="main">
+		<div id="contents" >
+			<div class="table0 center diet_table" style="margin-top:0px;margin-bottom:0px;">
+				<table>
+					<colgroup>
+						<col style="width:40vw;"/>
+						<col/>
+					</colgroup>
+					<thead>
+					<tr>
+						<td colspan="2" class="title" style="height:120px;word-wrap: normal;font-size: 28px;">
+							<div><strong>화요일</strong></div>
+							<div class="date" style="font-size: 28px;">
+								<a href="javascript:window.open('./food_m.php?p=1','_self')"><<</a>
+                                &nbsp;&nbsp;(09월 08일)&nbsp;&nbsp;
+								<a href="javascript:window.open('./food_m.php?p=3','_self')">>></a>
+							</div>
+						</td>
+					</tr>
+					</thead>
+					<tbody>
+						
+		<tr>
+			<td colspan="2" class="time" style="font-size: 24px;">
+				<strong>교직원식당</strong>
+			</td>
+		</tr>
+									
+				<tr>
+			<th style="font-size:20px;">
+			    <!-- 카테고리명 / 시간 / 가격 출력 -->
+			    점심<br>
+			    <span style="font-size:16px; font-weight:normal; color:#555;">(11:30~14:00)</span><br>
+			    <span style="font-size:16px; font-weight:normal;">식대 : 9000원</span>
+			</th>
+			<td style="font-size:20px; padding:15px; line-height:1.6;">
+		홍합무국<br />
+쌀밥<br />
+지코바숯불치킨<br />
+두부덴푸라&amp;칠리소스<br />
+콩나물김가루무침<br />
+섞박지<br />
+케요네즈샐러드			</td>
+		</tr>
+				<tr>
+			<th style="font-size:20px;">
+			    <!-- 카테고리명 / 시간 / 가격 출력 -->
+			    저녁<br>
+			    <span style="font-size:16px; font-weight:normal; color:#555;">(17:00~18:30)</span><br>
+			    <span style="font-size:16px; font-weight:normal;">식대 : 9000원</span>
+			</th>
+			<td style="font-size:20px; padding:15px; line-height:1.6;">
+		홍합무국<br />
+쌀밥<br />
+생선까스&amp;타르타르소스<br />
+크림알감자조림<br />
+콩나물김가루무침<br />
+섞박지<br />
+케요네즈샐러드			</td>
+		</tr>
+				<tr>
+			<td colspan="2" class="time" style="font-size: 24px;">
+				<strong>제2기숙사</strong>
+			</td>
+		</tr>
+									
+				<tr>
+			<th style="font-size:20px;">
+			    <!-- 카테고리명 / 시간 / 가격 출력 -->
+			    아침<br>
+			    <span style="font-size:16px; font-weight:normal; color:#555;">(08:00~09:00)</span><br>
+			    <span style="font-size:16px; font-weight:normal;">학생:5800원</span>
+			</th>
+			<td style="font-size:20px; padding:15px; line-height:1.6;">
+		백미밥<br />
+맑은두부국<br />
+스팸김치덮밥<br />
+데리야끼김말이강정<br />
+유자무짠지무침<br />
+깍두기<br />
+간편식<br />
+더커진참치마요삼각김밥<br />
+빅스위트데니쉬빵<br />
+애사비소다(체리)			</td>
+		</tr>
+				<tr>
+			<th style="font-size:20px;">
+			    <!-- 카테고리명 / 시간 / 가격 출력 -->
+			    점심A<br>
+			    <span style="font-size:16px; font-weight:normal; color:#555;">(11:30~14:00)</span><br>
+			    <span style="font-size:16px; font-weight:normal;">학생:5800원, 일반인:7500원</span>
+			</th>
+			<td style="font-size:20px; padding:15px; line-height:1.6;">
+		백미밥<br />
+사골파국<br />
+불맛제육볶음<br />
+감자고로케&amp;케찹<br />
+흑임자연근무침<br />
+실곤약무침<br />
+야채샐러드&amp;배추김치			</td>
+		</tr>
+				<tr>
+			<th style="font-size:20px;">
+			    <!-- 카테고리명 / 시간 / 가격 출력 -->
+			    점심B<br>
+			    <span style="font-size:16px; font-weight:normal; color:#555;">(11:30~14:00)</span><br>
+			    <span style="font-size:16px; font-weight:normal;">학생:5800원, 일반인:7500원</span>
+			</th>
+			<td style="font-size:20px; padding:15px; line-height:1.6;">
+		백미밥<br />
+옥수수스프<br />
+풀무원쉐프*수제함박스테이크*<br />
+토마토펜네파스타<br />
+웨지감자&amp;케찹<br />
+수제피클<br />
+야채샐러드&amp;배추김치			</td>
+		</tr>
+				<tr>
+			<th style="font-size:20px;">
+			    <!-- 카테고리명 / 시간 / 가격 출력 -->
+			    저녁<br>
+			    <span style="font-size:16px; font-weight:normal; color:#555;">(17:30~18:50)</span><br>
+			    <span style="font-size:16px; font-weight:normal;">학생:5800원, 일반인:7500원</span>
+			</th>
+			<td style="font-size:20px; padding:15px; line-height:1.6;">
+		백미밥<br />
+미역국<br />
+마라떡볶이<br />
+꿔바로우<br />
+버섯야채볶음<br />
+단무지<br />
+배추김치			</td>
+		</tr>
+							</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>
+

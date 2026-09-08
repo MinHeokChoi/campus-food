@@ -1,0 +1,35 @@
+name: scrape
+
+on:
+  schedule:
+    - cron: "30 20 * * *"   # KST 05:30
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths-ignore: ["menu.json", "menu.min.json"]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: scrape
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tests/test_scrape.py
+      - run: python3 scrape.py
+      - name: commit if changed
+        run: |
+          git config user.name "hongik-food bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add menu.json menu.min.json
+          if git diff --cached --quiet; then
+            echo "no change"
+          else
+            git commit -m "menu: $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M KST')"
+            git push
+          fi
