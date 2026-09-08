@@ -31,5 +31,5 @@ jobs:
             echo "no change"
           else
             git commit -m "menu: $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M KST')"
-            git push
+            git pull --rebase --autostash -q && git push
           fi
