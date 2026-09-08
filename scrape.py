@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """홍익대 학식 페이지(food_m.php)를 긁어 menu.json 을 쓴다.
 
-표준 라이브러리만 쓴다. `python3 scrape.py` 로 오늘부터 나흘(p=2~5)을 받는다.
+표준 라이브러리만 쓴다. `python3 scrape.py` 로 이번 주 월~금(p=1~5)을 받아 오늘 이전은 버린다.
+주말에 페이지가 뭘 내는지는 아직 모른다 (2026-09-12 확인 예정).
 파싱에 실패한 날은 건너뛰고 나머지를 낸다. 전부 실패하면 기존 파일을 건드리지
 않고 종료 코드 1 로 끝난다.
 
@@ -17,7 +18,7 @@ import sys
 import urllib.request
 
 URL = "https://apps.hongik.ac.kr/food/food_m.php?p={p}"
-PAGES = (2, 3, 4, 5)          # 오늘, 내일, 모레, 글피
+PAGES = (1, 2, 3, 4, 5)       # p = 이번 주 요일 번호 (1=월 .. 5=금). 지난 날은 아래에서 걸러진다
 KST = dt.timezone(dt.timedelta(hours=9))
 OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "menu.json")
 OUT_MIN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "menu.min.json")
