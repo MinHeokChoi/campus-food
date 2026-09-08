@@ -123,10 +123,17 @@ def parse_page(page_html, today):
     return {"date": date.isoformat(), "meals": meals}
 
 
-def fetch(p, timeout=20):
+def fetch(p, timeout=20, tries=3):
+    """한 번 실패해도 바로 버리지 않는다. 러너에서 p=5 가 한 번 빠진 적이 있다."""
     req = urllib.request.Request(URL.format(p=p), headers={"User-Agent": "hongik-food/1.0"})
-    with urllib.request.urlopen(req, timeout=timeout) as resp:
-        return resp.read().decode("utf-8", "replace")
+    last = None
+    for _ in range(tries):
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as resp:
+                return resp.read().decode("utf-8", "replace")
+        except Exception as e:  # noqa: BLE001
+            last = e
+    raise last
 
 
 def minify(doc):
