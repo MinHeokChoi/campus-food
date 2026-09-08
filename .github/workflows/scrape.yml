@@ -3,6 +3,7 @@ name: scrape
 on:
   schedule:
     - cron: "30 20 * * *"   # KST 05:30
+    - cron: "0 23 * * *"    # KST 08:00 — 페이지가 새벽에 아직 안 넘어갔을 때 보험
   workflow_dispatch:
   push:
     branches: [main]
