@@ -4,7 +4,8 @@
 정적 JSON 으로 낸다. Garmin 워치 앱 `학식` 이 이 파일을 읽는다.
 
 - `https://minheokchoi.github.io/hongik-food/menu.json` — 오늘부터 이번 주 금요일까지 (최대 4일)
-- `menu.min.json` — 키를 줄인 같은 내용 (`u`,`d`,`t`,`m`,`s`,`p`,`e`,`i`)
+- `holidays`: 오늘부터 60일 안의 공휴일 (시계가 "공휴일 / 식사 없음" 을 띄우는 데 쓴다. `scrape.py` 의 `HOLIDAYS` 를 매년 늘린다)
+- `menu.min.json` — 키를 줄인 같은 내용 (`u`,`h`,`d`,`t`,`m`,`s`,`p`,`e`,`i`)
 
 ```bash
 python3 scrape.py            # menu.json 갱신

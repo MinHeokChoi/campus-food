@@ -24,6 +24,20 @@ OUT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "menu.json")
 OUT_MIN = os.path.join(os.path.dirname(os.path.abspath(__file__)), "menu.min.json")
 
 PLACES = {"교직원식당": "교식", "제2기숙사": "학식"}
+
+# 공휴일 (대체공휴일 포함). 시계는 요일만 알아서 여기서 실어 준다.
+# 매년 한 번 다음 해를 붙인다. 학교 자체 휴일(개교기념일 등)은 없다.
+HOLIDAYS = [
+    "2026-01-01", "2026-02-16", "2026-02-17", "2026-02-18", "2026-03-02",
+    "2026-05-05", "2026-05-25", "2026-06-03", "2026-06-06", "2026-08-17",
+    "2026-09-24", "2026-09-25", "2026-09-26", "2026-09-28", "2026-10-05",
+    "2026-10-09", "2026-12-25",
+    "2027-01-01", "2027-02-05", "2027-02-06", "2027-02-07", "2027-02-08",
+    "2027-03-01", "2027-05-05", "2027-05-13", "2027-06-07", "2027-08-16",
+    "2027-09-14", "2027-09-15", "2027-09-16", "2027-10-04", "2027-10-11",
+    "2027-12-27",
+]
+HOLIDAY_WINDOW = 60   # 오늘부터 며칠치를 실을지
 # 하루 안의 표시 순서. 끼니 슬롯 순, 같은 슬롯이면 학식 먼저.
 SLOT_RANK = {"아침": 0, "아침 간편식": 1, "점심A": 2, "점심B": 2, "점심": 2, "저녁": 3}
 PLACE_RANK = {"학식": 0, "교식": 1}
@@ -137,9 +151,15 @@ def fetch(p, timeout=20, tries=3):
     raise last
 
 
+def upcoming_holidays(today, window=HOLIDAY_WINDOW):
+    end = (today + dt.timedelta(days=window)).isoformat()
+    return [h for h in HOLIDAYS if today.isoformat() <= h <= end]
+
+
 def minify(doc):
     return {
         "u": doc["updated"],
+        "h": doc["holidays"],
         "d": [{"t": d["date"],
                "m": [{"s": m["slot"], "p": m["place"], "e": m["end"], "i": m["items"]}
                      for m in d["meals"]]} for d in doc["days"]],
@@ -171,6 +191,7 @@ def main():
     doc = {
         "updated": now.replace(microsecond=0).isoformat(),
         "days": [days[k] for k in sorted(days)][:4],
+        "holidays": upcoming_holidays(today),
     }
     with open(OUT, "w", encoding="utf-8") as f:
         json.dump(doc, f, ensure_ascii=False, indent=1)

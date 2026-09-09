@@ -41,6 +41,12 @@ def test_year_rollover():
     assert scrape.resolve_year(12, 30, dt.date(2027, 1, 2)) == dt.date(2026, 12, 30)
 
 
+def test_holidays():
+    hs = scrape.upcoming_holidays(dt.date(2026, 9, 9))
+    assert hs[0] == "2026-09-24" and "2026-10-09" in hs and "2026-12-25" not in hs
+    assert all(hs[i] < hs[i + 1] for i in range(len(hs) - 1))
+
+
 def test_empty_page():
     assert scrape.parse_page("<html>(09월 08일)</html>", dt.date(2026, 9, 8)) is None
     assert scrape.parse_page("<html>nothing</html>", dt.date(2026, 9, 8)) is None
