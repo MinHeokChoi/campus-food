@@ -1,6 +1,82 @@
 {
  "venues": [
   {
+   "id": "syu",
+   "name": "삼육대",
+   "region": "서울",
+   "country": "KR",
+   "tz": "Asia/Seoul",
+   "places": [
+    {
+     "id": "su_lounge",
+     "name": "SU Lounge"
+    }
+   ]
+  },
+  {
+   "id": "smu",
+   "name": "상명대",
+   "region": "서울",
+   "country": "KR",
+   "tz": "Asia/Seoul",
+   "places": [
+    {
+     "id": "hansik",
+     "name": "한식"
+    },
+    {
+     "id": "foodcourt",
+     "name": "푸드코트"
+    }
+   ]
+  },
+  {
+   "id": "snue",
+   "name": "서울교대",
+   "region": "서울",
+   "country": "KR",
+   "tz": "Asia/Seoul",
+   "places": [
+    {
+     "id": "student",
+     "name": "학생식당"
+    },
+    {
+     "id": "faculty",
+     "name": "교직원식당"
+    }
+   ]
+  },
+  {
+   "id": "ewha",
+   "name": "이화여대",
+   "region": "서울",
+   "country": "KR",
+   "tz": "Asia/Seoul",
+   "places": [
+    {
+     "id": "ihouse",
+     "name": "I-House"
+    },
+    {
+     "id": "jinsunmi",
+     "name": "진선미관"
+    },
+    {
+     "id": "enguni",
+     "name": "공대식당"
+    },
+    {
+     "id": "hanuri",
+     "name": "한우리집"
+    },
+    {
+     "id": "ehouse",
+     "name": "E-House"
+    }
+   ]
+  },
+  {
    "id": "hongik",
    "name": "홍익대",
    "region": "서울",

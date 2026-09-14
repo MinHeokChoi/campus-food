@@ -9,7 +9,7 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import run  # noqa: E402
-from adapters import REGISTRY, base, hongik  # noqa: E402
+from adapters import REGISTRY, base, ewha, hongik, smu, snue, syu  # noqa: E402
 from calendars import kr  # noqa: E402
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -87,6 +87,99 @@ def test_hongik_places_match_venue():
     declared = {p["id"] for p in hongik.VENUE["places"]}
     day = hongik.parse_page(fixture("hongik_0908.html"), dt.date(2026, 9, 8))
     assert {m.place_id for m in day.meals} <= declared
+
+
+# --- 상명대 -------------------------------------------------------------
+
+def test_smu_sample():
+    days = smu.parse_page(fixture("smu_20260914.html"), dt.date(2026, 9, 14))
+    assert [d.date for d in days] == ["2026-09-14", "2026-09-15", "2026-09-16",
+                                      "2026-09-17", "2026-09-18"], [d.date for d in days]
+    mon = days[0].meals
+    assert [(m.slot, m.place_id) for m in mon] == [("점심", "hansik"), ("점심", "foodcourt")]
+    assert mon[0].end == "13:30"          # 이용시간 안내문에서 뽑는다
+    assert mon[0].items[0] == "백미밥/잡곡밥"
+    assert "함박폭찹스테이크" in mon[0].items
+    for d in days:
+        for m in d.meals:
+            assert all(0 < len(i) <= run.MAX_ITEM_LEN for i in m.items), m.items
+
+
+def test_smu_picks_the_menu_table():
+    """페이지에 smu-table 이 여럿이다. 공지 표를 집으면 날짜가 하나도 안 나온다."""
+    page = fixture("smu_20260914.html")
+    assert len(smu.RE_TABLE.findall(page)) > 1
+    assert smu.parse_page(page, dt.date(2026, 9, 14))
+
+
+def test_smu_places_match_venue():
+    declared = {p["id"] for p in smu.VENUE["places"]}
+    days = smu.parse_page(fixture("smu_20260914.html"), dt.date(2026, 9, 14))
+    assert {m.place_id for d in days for m in d.meals} <= declared
+
+
+# --- 삼육대 -------------------------------------------------------------
+
+def test_syu_sample():
+    days = syu.parse_page(fixture("syu_20260914.html"), dt.date(2026, 9, 14))
+    assert [d.date for d in days][:5] == ["2026-09-14", "2026-09-15", "2026-09-16",
+                                          "2026-09-17", "2026-09-18"]
+    mon = days[0].meals
+    assert [m.slot for m in mon] == ["아침", "점심A", "점심B", "저녁"], [m.slot for m in mon]
+    assert [m.end for m in mon] == ["09:30", "14:00", "14:00", "18:30"]
+    assert "소고기육개장" in mon[1].items
+
+
+def test_syu_drops_closed_dinner():
+    """금요일 석식은 '운영 없음' 셀로 온다. 끼니 자체가 나오면 안 된다."""
+    days = syu.parse_page(fixture("syu_20260914.html"), dt.date(2026, 9, 14))
+    fri = [d for d in days if d.date == "2026-09-18"][0]
+    assert "저녁" not in [m.slot for m in fri.meals], [m.slot for m in fri.meals]
+
+
+# --- 서울교대 -----------------------------------------------------------
+
+def test_snue_sample():
+    days = snue.parse_page(fixture("snue_20260914.html"), dt.date(2026, 9, 14))
+    assert [d.date for d in days][:5] == ["2026-09-14", "2026-09-15", "2026-09-16",
+                                          "2026-09-17", "2026-09-18"]
+    tue = [d for d in days if d.date == "2026-09-15"][0].meals
+    assert [(m.slot, m.place_id) for m in tue] == [
+        ("점심", "student"), ("점심", "faculty"), ("저녁", "student")]
+    assert tue[0].end == "13:20"      # 편의시설 페이지에서 옮겨 온 상수
+    assert tue[1].end is None         # 교직원 시간은 어디에도 안 적혀 있다 — 지어내지 않는다
+
+
+def test_snue_keeps_closed_notice():
+    """9/14 학생 점심은 체육대회로 휴무다. 끼니를 지우면 '아직 안 올라옴' 과 구분이 안 된다."""
+    days = snue.parse_page(fixture("snue_20260914.html"), dt.date(2026, 9, 14))
+    mon = days[0].meals[0]
+    assert mon.slot == "점심" and "휴무" in mon.items
+
+
+# --- 이화여대 -----------------------------------------------------------
+
+def test_ewha_sample():
+    # parse_page 는 {date: [Meal]} 을 낸다 — 식당 5곳을 날짜별로 합쳐야 해서다
+    by_date = ewha.parse_page(fixture("ewha_20260914.html"), dt.date(2026, 9, 14), "hanuri")
+    assert by_date, "한우리집 메뉴가 나와야 한다"
+    mon = by_date[dt.date(2026, 9, 14)]
+    assert [m.slot for m in mon] == ["아침", "점심", "저녁"], [m.slot for m in mon]
+    assert all(m.place_id == "hanuri" and m.place == "한우리집" for m in mon)
+    assert mon[0].end == "09:30" and mon[2].end == "18:45"   # 이용안내에서 뽑는다
+    assert "햄섞어찌개" in mon[0].items
+
+
+def test_ewha_empty_breakfast_does_not_swallow_lunch():
+    """안 하는 끼니가 빈 div 로 온다. div 를 </div> 로 끊으면 중식이 조식으로 찍힌다."""
+    by_date = ewha.parse_page(fixture("ewha_20260914.html"), dt.date(2026, 9, 14), "hanuri")
+    for date, meals in by_date.items():
+        seen = set()
+        for m in meals:
+            assert m.items, (date, m.slot)
+            assert m.slot not in seen, (date, m.slot, "끼니가 두 번")
+            seen.add(m.slot)
+            assert len(m.items) <= 20, (date, m.slot, len(m.items))
 
 
 # --- 품질 검사 -------------------------------------------------------------
