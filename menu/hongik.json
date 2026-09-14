@@ -1,4 +1,5 @@
 {
+ "venue": "hongik",
  "updated": "2026-09-14T16:43:45+09:00",
  "days": [
   {
@@ -7,6 +8,7 @@
     {
      "slot": "아침",
      "place": "학식",
+     "placeId": "haksik",
      "end": "09:00",
      "items": [
       "백미밥",
@@ -20,6 +22,7 @@
     {
      "slot": "아침 간편식",
      "place": "학식",
+     "placeId": "haksik",
      "end": "09:00",
      "items": [
       "고추참치삼각김밥",
@@ -30,6 +33,7 @@
     {
      "slot": "점심A",
      "place": "학식",
+     "placeId": "haksik",
      "end": "14:00",
      "items": [
       "백미밥",
@@ -44,6 +48,7 @@
     {
      "slot": "점심B",
      "place": "학식",
+     "placeId": "haksik",
      "end": "14:00",
      "items": [
       "백미밥",
@@ -58,6 +63,7 @@
     {
      "slot": "점심",
      "place": "교식",
+     "placeId": "gyosik",
      "end": "14:00",
      "items": [
       "들깨미역국",
@@ -72,6 +78,7 @@
     {
      "slot": "저녁",
      "place": "학식",
+     "placeId": "haksik",
      "end": "18:50",
      "items": [
       "백미밥",
@@ -86,6 +93,7 @@
     {
      "slot": "저녁",
      "place": "교식",
+     "placeId": "gyosik",
      "end": "18:30",
      "items": [
       "어묵김치국",
@@ -105,6 +113,7 @@
     {
      "slot": "아침",
      "place": "학식",
+     "placeId": "haksik",
      "end": "09:00",
      "items": [
       "백미밥",
@@ -118,6 +127,7 @@
     {
      "slot": "아침 간편식",
      "place": "학식",
+     "placeId": "haksik",
      "end": "09:00",
      "items": [
       "롤&유부초밥세트",
@@ -128,6 +138,7 @@
     {
      "slot": "점심A",
      "place": "학식",
+     "placeId": "haksik",
      "end": "14:00",
      "items": [
       "백미밥",
@@ -142,6 +153,7 @@
     {
      "slot": "점심B",
      "place": "학식",
+     "placeId": "haksik",
      "end": "14:00",
      "items": [
       "백미밥",
@@ -156,6 +168,7 @@
     {
      "slot": "점심",
      "place": "교식",
+     "placeId": "gyosik",
      "end": "14:00",
      "items": [
       "햄듬뿍부대찌개",
@@ -170,6 +183,7 @@
     {
      "slot": "저녁",
      "place": "학식",
+     "placeId": "haksik",
      "end": "18:50",
      "items": [
       "백미밥",
@@ -184,6 +198,7 @@
     {
      "slot": "저녁",
      "place": "교식",
+     "placeId": "gyosik",
      "end": "18:30",
      "items": [
       "해물짬뽕국",
@@ -203,6 +218,7 @@
     {
      "slot": "아침",
      "place": "학식",
+     "placeId": "haksik",
      "end": "09:00",
      "items": [
       "백미밥",
@@ -216,6 +232,7 @@
     {
      "slot": "아침 간편식",
      "place": "학식",
+     "placeId": "haksik",
      "end": "09:00",
      "items": [
       "치즈불닭김밥",
@@ -226,6 +243,7 @@
     {
      "slot": "점심A",
      "place": "학식",
+     "placeId": "haksik",
      "end": "14:00",
      "items": [
       "백미밥",
@@ -240,6 +258,7 @@
     {
      "slot": "점심B",
      "place": "학식",
+     "placeId": "haksik",
      "end": "14:00",
      "items": [
       "백미밥",
@@ -254,6 +273,7 @@
     {
      "slot": "점심",
      "place": "교식",
+     "placeId": "gyosik",
      "end": "14:00",
      "items": [
       "우동국물",
@@ -268,6 +288,7 @@
     {
      "slot": "저녁",
      "place": "학식",
+     "placeId": "haksik",
      "end": "18:50",
      "items": [
       "백미밥",
@@ -282,6 +303,7 @@
     {
      "slot": "저녁",
      "place": "교식",
+     "placeId": "gyosik",
      "end": "18:30",
      "items": [
       "팽이버섯된장국",
@@ -301,6 +323,7 @@
     {
      "slot": "아침",
      "place": "학식",
+     "placeId": "haksik",
      "end": "09:00",
      "items": [
       "백미밥",
@@ -314,6 +337,7 @@
     {
      "slot": "아침 간편식",
      "place": "학식",
+     "placeId": "haksik",
      "end": "09:00",
      "items": [
       "고소한캘리포니아롤",
@@ -324,6 +348,7 @@
     {
      "slot": "점심A",
      "place": "학식",
+     "placeId": "haksik",
      "end": "14:00",
      "items": [
       "백미밥",
@@ -338,6 +363,7 @@
     {
      "slot": "점심B",
      "place": "학식",
+     "placeId": "haksik",
      "end": "14:00",
      "items": [
       "백미밥",
@@ -352,6 +378,7 @@
     {
      "slot": "점심",
      "place": "교식",
+     "placeId": "gyosik",
      "end": "14:00",
      "items": [
       "얼큰닭개장",
@@ -366,6 +393,7 @@
     {
      "slot": "저녁",
      "place": "학식",
+     "placeId": "haksik",
      "end": "18:50",
      "items": [
       "백미밥",
@@ -380,6 +408,7 @@
     {
      "slot": "저녁",
      "place": "교식",
+     "placeId": "gyosik",
      "end": "18:30",
      "items": [
       "바지락된장찌개",

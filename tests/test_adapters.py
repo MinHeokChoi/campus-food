@@ -8,6 +8,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import run  # noqa: E402
 from adapters import REGISTRY, base, hongik  # noqa: E402
 from calendars import kr  # noqa: E402
 
@@ -86,6 +87,76 @@ def test_hongik_places_match_venue():
     declared = {p["id"] for p in hongik.VENUE["places"]}
     day = hongik.parse_page(fixture("hongik_0908.html"), dt.date(2026, 9, 8))
     assert {m.place_id for m in day.meals} <= declared
+
+
+# --- 품질 검사 -------------------------------------------------------------
+#
+# 학교 사이트가 개편되면 대개 예외가 아니라 "빈 배열" 이나 "안내문이 섞인 줄" 로 온다.
+# 예외만 잡으면 그게 그대로 시계까지 간다. 아래가 실제로 막히는지 본다.
+
+TODAY = dt.date(2026, 9, 14)
+VENUE = {"places": [{"id": "haksik", "name": "학식"}, {"id": "gyosik", "name": "교식"}]}
+
+
+def day(date="2026-09-14", **kw):
+    m = dict(slot="점심A", place="학식", place_id="haksik", end="14:00",
+             items=["백미밥", "사골파국"])
+    m.update(kw)
+    return base.Day(date=date, meals=[base.Meal(**m)])
+
+
+def rejects(days, why):
+    try:
+        run.check(VENUE, days, TODAY)
+    except run.BadData:
+        return
+    raise AssertionError("막았어야 한다: " + why)
+
+
+def test_check_accepts_good_data():
+    run.check(VENUE, [day(), day("2026-09-15")], TODAY)
+
+
+def test_check_rejects_empty():
+    rejects([], "날이 하나도 없다")
+    rejects([base.Day(date="2026-09-14", meals=[])], "끼니가 없다")
+    rejects([day(items=[])], "메뉴가 없다")
+
+
+def test_check_rejects_noise():
+    # 개편되면 안내문 한 줄이 메뉴 자리에 통째로 들어오는 일이 있다
+    rejects([day(items=["◇학기 중 평일운영시간 조식 08:00~10:00 중식 11:00~15:00 석식 17:00~18:30"])],
+            "40자 넘는 항목")
+    rejects([day(items=[""])], "빈 항목")
+    rejects([day(slot="")], "끼니 이름이 비었다")
+
+
+def test_check_rejects_undeclared_place():
+    rejects([day(place_id="nosuch")], "VENUE.places 에 없는 식당")
+
+
+def test_check_rejects_bad_dates():
+    rejects([day("2026-09-13")], "지난 날짜")
+    rejects([day(), day()], "같은 날짜 두 번")
+    rejects([day("2026-09-15"), day("2026-09-14")], "내림차순")
+
+
+def test_check_allows_null_end():
+    # 추계예술대처럼 마감시각을 공개 안 하는 곳이 있다
+    run.check(VENUE, [day(end=None)], TODAY)
+    rejects([day(end="14시")], "형식이 틀린 마감시각")
+
+
+def test_legacy_shape_is_frozen():
+    """v1.x 시계가 아는 모양. 여기에 키를 더하거나 빼면 설치된 앱이 깨진다."""
+    doc = {"venue": "x", "updated": "T", "holidays": [],
+           "days": [{"date": "2026-09-14",
+                     "meals": [{"slot": "점심A", "place": "학식", "placeId": "haksik",
+                                "end": "14:00", "items": ["밥"]}]}]}
+    old = run.legacy(doc)
+    assert sorted(old.keys()) == ["days", "holidays", "updated"]
+    assert sorted(old["days"][0]["meals"][0].keys()) == ["end", "items", "place", "slot"]
+    assert sorted(run.minify(old).keys()) == ["d", "h", "u"]
 
 
 if __name__ == "__main__":

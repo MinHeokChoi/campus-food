@@ -1,0 +1,21 @@
+{
+ "venues": [
+  {
+   "id": "hongik",
+   "name": "홍익대",
+   "region": "서울",
+   "country": "KR",
+   "tz": "Asia/Seoul",
+   "places": [
+    {
+     "id": "haksik",
+     "name": "학식"
+    },
+    {
+     "id": "gyosik",
+     "name": "교식"
+    }
+   ]
+  }
+ ]
+}

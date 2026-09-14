@@ -7,10 +7,11 @@ on:
   workflow_dispatch:
   push:
     branches: [main]
-    paths-ignore: ["menu.json", "menu.min.json"]
+    paths-ignore: ["menu.json", "menu.min.json", "menu/**", "status.json"]
 
 permissions:
   contents: write
+  issues: write
 
 concurrency:
   group: scrape
@@ -21,16 +22,63 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - run: python3 tests/test_adapters.py
-      - run: python3 run.py
+
+      # 한 곳이 실패해도 나머지는 나온다. 종료 코드는 아래 알림 단계에서 쓴다.
+      - name: scrape
+        id: scrape
+        continue-on-error: true
+        run: python3 run.py
+
       - name: commit if changed
         run: |
           git config user.name "campus-food bot"
           git config user.email "actions@users.noreply.github.com"
-          git add menu.json menu.min.json
+          git add menu.json menu.min.json menu venues.json status.json
           if git diff --cached --quiet; then
             echo "no change"
           else
             git commit -m "menu: $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M KST')"
             git pull --rebase --autostash -q && git push
           fi
+
+      # 사이트 개편은 조용히 온다. 한 번 실패는 흔하지만 사흘 연속이면 사람이 봐야 한다.
+      - name: open an issue for venues failing 3 days straight
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY' > /tmp/alerts
+          import json
+          s = json.load(open("status.json"))
+          for vid, v in sorted(s["venues"].items()):
+              if not v["ok"] and v["failStreak"] >= 3:
+                  print("%s\t%d\t%s\t%s" % (vid, v["failStreak"],
+                                            v.get("lastSuccess") or "없음",
+                                            (v.get("error") or "").replace("\t", " ")[:300]))
+          PY
+          while IFS=$'\t' read -r vid streak last err; do
+            [ -z "$vid" ] && continue
+            title="수집 실패: $vid ($streak일 연속)"
+            if gh issue list --state open --search "$title in:title" --json title \
+                 --jq '.[].title' | grep -qxF "$title"; then
+              echo "이미 열린 이슈: $title"
+              continue
+            fi
+            gh issue create --title "$title" --body "$(printf '%s\n' \
+              "\`$vid\` 어댑터가 **$streak 일 연속** 실패했다." \
+              "" \
+              "- 마지막 성공: $last" \
+              "- 마지막 오류: \`$err\`" \
+              "" \
+              "학교 사이트가 개편됐을 가능성이 높다. \`adapters/$vid.py\` 를 확인해라." \
+              "실패하는 동안 \`menu/$vid.json\` 은 건드리지 않았으므로 옛 메뉴가 그대로 남아 있다.")"
+            echo "이슈 열었다: $title"
+          done < /tmp/alerts
+
+      - name: fail the run if any venue failed
+        if: steps.scrape.outcome == 'failure'
+        run: |
+          echo "수집 실패한 장소가 있다. status.json 을 봐라."
+          exit 1
