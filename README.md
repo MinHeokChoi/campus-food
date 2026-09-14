@@ -1,7 +1,7 @@
 # campus-food
 
 대학 학식 페이지를 매일 새벽 긁어 정적 JSON 으로 낸다.
-Garmin 워치 앱 **WhatsForLunch** 가 이 파일을 읽는다.
+Garmin 워치 앱 **Campus Food** 가 이 파일을 읽는다.
 
 지금 등록된 장소는 **홍익대(서울) 한 곳**이다. 서울 25곳까지 늘릴 수 있다는 걸
 조사로 확인했다 — 워치 앱 저장소의 `SURVEY-서울학식.md`, `PLAN-다학교.md` 참고.
