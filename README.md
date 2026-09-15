@@ -64,6 +64,22 @@ def fetch(today: datetime.date) -> list[base.Day]
 2026-09-14 에 `hongik-food` → `campus-food` 로 바꿀 수 있었던 건 그때 설치자가 개발자 본인
 하나뿐이었기 때문이다. GitHub Pages 는 옛 주소를 리다이렉트해 주지 않는다.
 
+## 커밋할 때
+
+**사람은 소스만 커밋한다. 생성 파일(`menu*.json`, `menu/`, `venues*`, `status.json`)은 봇만 커밋한다.**
+
+`git add -A` 로 생성 파일까지 올리면 봇 커밋과 매번 충돌한다 — 봇이 KST 05:30·08:00 과
+푸시할 때마다 같은 파일을 고치기 때문이다. 세 번 겪고 나서 적는다.
+
+```bash
+git add run.py adapters tests README.md .github    # 소스만
+git commit -m "..."
+git push
+```
+
+충돌이 이미 났으면 손으로 합치지 말고 `python3 run.py` 로 다시 만들고 `git add` 하면 된다.
+생성 파일이라 합칠 게 없다.
+
 ## 실패를 어떻게 아는가
 
 학교 사이트 개편은 예외가 아니라 **빈 배열**이나 **안내문이 섞인 줄**로 온다. 예외만 잡으면
