@@ -27,6 +27,7 @@ VENUE = {
     "id": "snue",
     "name": "서울교대",
     "region": "서울",
+    "region_id": "seoul",
     "country": "KR",
     "tz": "Asia/Seoul",
     "calendar": "kr",

@@ -5,6 +5,7 @@
 """
 import datetime as dt
 import os
+import re
 import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -26,13 +27,16 @@ def test_registry_shape():
     """어댑터 규약: VENUE 키가 다 있고, id 가 등록 키와 같고, places 가 비어 있지 않다."""
     for vid, mod in REGISTRY.items():
         v = mod.VENUE
-        for key in ("id", "name", "region", "country", "tz", "calendar", "places"):
+        for key in ("id", "name", "region", "region_id", "country", "tz", "calendar", "places"):
             assert key in v, (vid, key)
         assert v["id"] == vid
         assert v["places"], vid
         ids = [p["id"] for p in v["places"]]
         assert len(ids) == len(set(ids)), vid
         assert hasattr(mod, "fetch"), vid
+        # region_id 는 파일 이름이 된다 (venues/kr-seoul.json)
+        assert re.match(r"^[a-z0-9-]+$", v["region_id"]), (vid, v["region_id"])
+        assert re.match(r"^[A-Z]{2}$", v["country"]), (vid, v["country"])
 
 
 def test_text_lines():
@@ -180,6 +184,29 @@ def test_ewha_empty_breakfast_does_not_swallow_lunch():
             assert m.slot not in seen, (date, m.slot, "끼니가 두 번")
             seen.add(m.slot)
             assert len(m.items) <= 20, (date, m.slot, len(m.items))
+
+
+# --- 목록 쪼개기 ---------------------------------------------------------
+
+def test_region_sharding(tmpdir=None):
+    """장소 하나에 약 260B 다. 400곳이면 100KB — 시계가 통째로 못 받는다.
+    그래서 index.json(작다) + 지역 파일 하나로 쪼갠다."""
+    import json
+    here = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    index = json.load(open(os.path.join(here, "venues", "index.json"), encoding="utf-8"))
+    assert index["countries"], "나라가 하나도 없다"
+    total = 0
+    for c in index["countries"]:
+        assert c["code"] and c["name"]
+        for r in c["regions"]:
+            path = os.path.join(here, r["file"])
+            assert os.path.exists(path), r["file"]
+            shard = json.load(open(path, encoding="utf-8"))
+            assert len(shard["venues"]) == r["count"], r["file"]
+            names = [v["name"] for v in shard["venues"]]
+            assert names == sorted(names), ("가나다 순이 아니다", names)
+            total += r["count"]
+    assert total == len(REGISTRY), (total, len(REGISTRY))
 
 
 # --- 품질 검사 -------------------------------------------------------------

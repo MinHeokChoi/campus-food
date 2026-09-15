@@ -14,6 +14,7 @@ VENUE = {
     "id": "hongik",
     "name": "홍익대",
     "region": "서울",
+    "region_id": "seoul",
     "country": "KR",
     "tz": "Asia/Seoul",
     "calendar": "kr",

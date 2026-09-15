@@ -1,0 +1,17 @@
+{
+ "updated": "2026-09-15T10:07:36+09:00",
+ "countries": [
+  {
+   "code": "KR",
+   "name": "대한민국",
+   "regions": [
+    {
+     "id": "seoul",
+     "name": "서울",
+     "count": 5,
+     "file": "venues/kr-seoul.json"
+    }
+   ]
+  }
+ ]
+}

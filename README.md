@@ -34,7 +34,7 @@ tests/
 **어댑터 규약은 둘뿐이다.**
 
 ```python
-VENUE = {"id", "name", "region", "country", "tz", "calendar", "places"}
+VENUE = {"id", "name", "region", "region_id", "country", "tz", "calendar", "places"}
 def fetch(today: datetime.date) -> list[base.Day]
 ```
 
@@ -45,10 +45,16 @@ def fetch(today: datetime.date) -> list[base.Day]
 
 | 파일 | 누가 읽나 |
 |---|---|
-| `venues.json` | 워치의 장소 선택 화면. 정렬(나라 > 지역 > 이름)까지 여기서 정한다 |
+| `venues/index.json` | 워치의 선택 화면 1·2단계. 나라와 지역 목록 (작다) |
+| `venues/<나라>-<지역>.json` | 3단계. **그 지역 것만** 받는다 |
+| `venues.json` | 사람이 보는 전체 목록. 워치는 안 읽는다 |
 | `menu/<id>.json` | 워치 본체. 고른 장소 것 하나만 받는다 — 장소가 늘어도 받는 양은 그대로다 |
 | `status.json` | 사람과 워크플로. 장소별 성공/실패와 연속 실패 횟수 |
 | `menu.json` `menu.min.json` | **v1.x 가 설치된 시계.** 홍익대 전용 옛 경로다 |
+
+목록을 지역별로 쪼갠 건 크기 때문이다. 장소 하나에 약 260B 라 400곳이면 100KB 가 되는데,
+그걸 시계가 통째로 받아 파싱할 수는 없다. 정렬(가나다·ABC)은 프록시가 정한다 —
+워치는 받은 순서대로 그린다.
 
 `menu/<id>.json` 은 `venue` 와 끼니마다 `placeId` 가 더 있고, `end` 가 `null` 일 수 있다
 (마감시각을 공개 안 하는 학교가 있다). `menu.json` 은 **v1.x 가 알던 모양 그대로** 낸다 —

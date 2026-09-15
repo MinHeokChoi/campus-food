@@ -29,7 +29,11 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 KST = dt.timezone(dt.timedelta(hours=9))
 
 MENU_DIR = os.path.join(HERE, "menu")
-VENUES_OUT = os.path.join(HERE, "venues.json")
+VENUES_OUT = os.path.join(HERE, "venues.json")      # 사람이 보는 전체 목록. 워치는 안 읽는다
+VENUES_DIR = os.path.join(HERE, "venues")           # 워치가 읽는 것: index.json + <나라>-<지역>.json
+
+# 나라 코드 -> 현지 표기. 영어로 번역해 두면 정작 그 나라 사람이 자기 나라를 못 찾는다.
+COUNTRY_NAMES = {"KR": "대한민국"}
 STATUS_OUT = os.path.join(HERE, "status.json")
 
 # v1.x 가 설치된 시계가 상수로 들고 있는 경로. 홍익대만 여기로도 낸다.
@@ -138,19 +142,45 @@ def load_status():
         return {"venues": {}}
 
 
-def write_venues():
-    """워치의 선택 화면이 읽는 목록. 정렬은 여기서 정한다 — 워치는 받은 순서대로 그린다.
+def region_file(country, region_id):
+    return "venues/%s-%s.json" % (country.lower(), region_id)
 
-    나라 > 지역 > 이름 순. 한글 음절은 유니코드 코드포인트 순이 곧 가나다 순이다.
+
+def write_venues(stamp):
+    """워치의 장소 선택 화면이 읽는 목록.
+
+    **지역별로 쪼개 낸다.** 한 파일에 다 담으면 장소 하나에 약 260B 라 400곳이면 100KB 가
+    되는데, 그걸 시계가 통째로 받아 파싱할 수는 없다. 워치는 `venues/index.json`(작다) 을
+    받아 나라·지역을 고르고, 그 지역 파일 하나만 더 받는다.
+
+    정렬은 여기서 정한다 — 워치는 받은 순서대로 그린다. 나라 > 지역 > 이름 순.
+    한글 음절은 유니코드 코드포인트 순이 곧 가나다 순이라 그냥 정렬하면 된다.
     """
-    venues = []
+    by_region = {}
+    everything = []
     for mod in REGISTRY.values():
         v = mod.VENUE
-        venues.append({"id": v["id"], "name": v["name"], "region": v["region"],
-                       "country": v["country"], "tz": v["tz"],
-                       "places": [dict(p) for p in v["places"]]})
-    venues.sort(key=lambda v: (v["country"], v["region"], v["name"]))
-    write(VENUES_OUT, {"venues": venues}, indent=1)
+        entry = {"id": v["id"], "name": v["name"],
+                 "places": [dict(p) for p in v["places"]]}
+        by_region.setdefault((v["country"], v["region_id"], v["region"]), []).append(entry)
+        everything.append(dict(entry, country=v["country"], region=v["region"], tz=v["tz"]))
+
+    countries = {}
+    for (country, region_id, region), venues in sorted(by_region.items()):
+        venues.sort(key=lambda x: x["name"])
+        path = region_file(country, region_id)
+        write(os.path.join(HERE, path),
+              {"country": country, "region": region, "venues": venues}, indent=1)
+        countries.setdefault(country, []).append(
+            {"id": region_id, "name": region, "count": len(venues), "file": path})
+
+    index = {"updated": stamp, "countries": [
+        {"code": c, "name": COUNTRY_NAMES.get(c, c), "regions": regions}
+        for c, regions in sorted(countries.items())]}
+    write(os.path.join(VENUES_DIR, "index.json"), index, indent=1)
+
+    everything.sort(key=lambda v: (v["country"], v["region"], v["name"]))
+    write(VENUES_OUT, {"venues": everything}, indent=1)
 
 
 def main(argv):
@@ -194,7 +224,7 @@ def main(argv):
         }
         print("%s: %d day(s) %s" % (vid, len(doc["days"]), [d["date"] for d in doc["days"]]))
 
-    write_venues()
+    write_venues(stamp)
     status["updated"] = stamp
     write(STATUS_OUT, status, indent=1)
     return 1 if failed else 0

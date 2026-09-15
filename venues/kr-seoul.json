@@ -1,4 +1,6 @@
 {
+ "country": "KR",
+ "region": "서울",
  "venues": [
   {
    "id": "syu",
@@ -8,10 +10,7 @@
      "id": "su_lounge",
      "name": "SU Lounge"
     }
-   ],
-   "country": "KR",
-   "region": "서울",
-   "tz": "Asia/Seoul"
+   ]
   },
   {
    "id": "smu",
@@ -25,10 +24,7 @@
      "id": "foodcourt",
      "name": "푸드코트"
     }
-   ],
-   "country": "KR",
-   "region": "서울",
-   "tz": "Asia/Seoul"
+   ]
   },
   {
    "id": "snue",
@@ -42,10 +38,7 @@
      "id": "faculty",
      "name": "교직원식당"
     }
-   ],
-   "country": "KR",
-   "region": "서울",
-   "tz": "Asia/Seoul"
+   ]
   },
   {
    "id": "ewha",
@@ -71,10 +64,7 @@
      "id": "ehouse",
      "name": "E-House"
     }
-   ],
-   "country": "KR",
-   "region": "서울",
-   "tz": "Asia/Seoul"
+   ]
   },
   {
    "id": "hongik",
@@ -88,10 +78,7 @@
      "id": "gyosik",
      "name": "교식"
     }
-   ],
-   "country": "KR",
-   "region": "서울",
-   "tz": "Asia/Seoul"
+   ]
   }
  ]
 }

@@ -19,6 +19,7 @@ VENUE = {
     "id": "smu",
     "name": "상명대",
     "region": "서울",
+    "region_id": "seoul",
     "country": "KR",
     "tz": "Asia/Seoul",
     "calendar": "kr",
