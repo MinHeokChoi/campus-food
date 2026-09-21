@@ -1,63 +1,68 @@
 {
  "venues": {
   "ewha": {
-   "ok": false,
-   "error": "RuntimeError: 식당 다섯 곳 모두 메뉴가 없다: ihouse: <urlopen error timed out>; jinsunmi: <urlopen error timed out>; enguni: <urlopen error timed out>; hanuri: <urlopen error timed out>; ehouse: <urlopen error timed out>",
-   "failStreak": 1,
-   "lastSuccess": "2026-09-21T07:38:08+09:00",
-   "checkedAt": "2026-09-21T09:43:02+09:00"
+   "ok": true,
+   "error": null,
+   "failStreak": 0,
+   "lastSuccess": "2026-09-22T08:29:35+09:00",
+   "checkedAt": "2026-09-22T08:29:35+09:00",
+   "days": [
+    "2026-09-22",
+    "2026-09-23",
+    "2026-09-24",
+    "2026-09-25"
+   ]
   },
   "hongik": {
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-09-21T09:43:02+09:00",
-   "checkedAt": "2026-09-21T09:43:02+09:00",
+   "lastSuccess": "2026-09-22T08:29:35+09:00",
+   "checkedAt": "2026-09-22T08:29:35+09:00",
    "days": [
-    "2026-09-21",
     "2026-09-22",
     "2026-09-23",
-    "2026-09-24"
+    "2026-09-24",
+    "2026-09-25"
    ]
   },
   "smu": {
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-09-21T09:43:02+09:00",
-   "checkedAt": "2026-09-21T09:43:02+09:00",
+   "lastSuccess": "2026-09-22T08:29:35+09:00",
+   "checkedAt": "2026-09-22T08:29:35+09:00",
    "days": [
-    "2026-09-21",
     "2026-09-22",
     "2026-09-23",
-    "2026-09-24"
+    "2026-09-24",
+    "2026-09-25"
    ]
   },
   "snue": {
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-09-21T09:43:02+09:00",
-   "checkedAt": "2026-09-21T09:43:02+09:00",
+   "lastSuccess": "2026-09-22T08:29:35+09:00",
+   "checkedAt": "2026-09-22T08:29:35+09:00",
    "days": [
-    "2026-09-21",
     "2026-09-22",
     "2026-09-23",
-    "2026-09-24"
+    "2026-09-24",
+    "2026-09-25"
    ]
   },
   "syu": {
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-09-21T09:43:02+09:00",
-   "checkedAt": "2026-09-21T09:43:02+09:00",
+   "lastSuccess": "2026-09-22T08:29:35+09:00",
+   "checkedAt": "2026-09-22T08:29:35+09:00",
    "days": [
-    "2026-09-21",
     "2026-09-22",
     "2026-09-23"
    ]
   }
  },
- "updated": "2026-09-21T09:43:02+09:00"
+ "updated": "2026-09-22T08:29:35+09:00"
 }
