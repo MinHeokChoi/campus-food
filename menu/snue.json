@@ -1,39 +1,7 @@
 {
  "venue": "snue",
- "updated": "2026-10-05T10:26:53+09:00",
+ "updated": "2026-10-06T10:23:06+09:00",
  "days": [
-  {
-   "date": "2026-10-05",
-   "meals": [
-    {
-     "slot": "점심",
-     "place": "학생식당",
-     "placeId": "student",
-     "end": "13:20",
-     "items": [
-      "휴무"
-     ]
-    },
-    {
-     "slot": "점심",
-     "place": "교직원식당",
-     "placeId": "faculty",
-     "end": null,
-     "items": [
-      "휴무"
-     ]
-    },
-    {
-     "slot": "저녁",
-     "place": "학생식당",
-     "placeId": "student",
-     "end": null,
-     "items": [
-      "휴무"
-     ]
-    }
-   ]
-  },
   {
    "date": "2026-10-06",
    "meals": [
@@ -164,10 +132,41 @@
      ]
     }
    ]
+  },
+  {
+   "date": "2026-10-09",
+   "meals": [
+    {
+     "slot": "점심",
+     "place": "학생식당",
+     "placeId": "student",
+     "end": "13:20",
+     "items": [
+      "휴무"
+     ]
+    },
+    {
+     "slot": "점심",
+     "place": "교직원식당",
+     "placeId": "faculty",
+     "end": null,
+     "items": [
+      "휴무"
+     ]
+    },
+    {
+     "slot": "저녁",
+     "place": "학생식당",
+     "placeId": "student",
+     "end": null,
+     "items": [
+      "휴무"
+     ]
+    }
+   ]
   }
  ],
  "holidays": [
-  "2026-10-05",
   "2026-10-09"
  ]
 }
