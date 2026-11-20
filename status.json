@@ -1,23 +1,18 @@
 {
  "venues": {
   "ewha": {
-   "ok": true,
-   "error": null,
-   "failStreak": 0,
+   "ok": false,
+   "error": "RuntimeError: 식당 다섯 곳 모두 메뉴가 없다: ihouse: <urlopen error timed out>; jinsunmi: <urlopen error timed out>; enguni: <urlopen error timed out>; hanuri: <urlopen error timed out>; ehouse: <urlopen error timed out>",
+   "failStreak": 1,
    "lastSuccess": "2026-11-20T10:51:01+09:00",
-   "checkedAt": "2026-11-20T10:51:01+09:00",
-   "days": [
-    "2026-11-20",
-    "2026-11-21",
-    "2026-11-22"
-   ]
+   "checkedAt": "2026-11-20T12:48:30+09:00"
   },
   "hongik": {
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-11-20T10:51:01+09:00",
-   "checkedAt": "2026-11-20T10:51:01+09:00",
+   "lastSuccess": "2026-11-20T12:48:30+09:00",
+   "checkedAt": "2026-11-20T12:48:30+09:00",
    "days": [
     "2026-11-20"
    ]
@@ -26,8 +21,8 @@
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-11-20T10:51:01+09:00",
-   "checkedAt": "2026-11-20T10:51:01+09:00",
+   "lastSuccess": "2026-11-20T12:48:30+09:00",
+   "checkedAt": "2026-11-20T12:48:30+09:00",
    "days": [
     "2026-11-20"
    ]
@@ -36,8 +31,8 @@
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-11-20T10:51:01+09:00",
-   "checkedAt": "2026-11-20T10:51:01+09:00",
+   "lastSuccess": "2026-11-20T12:48:30+09:00",
+   "checkedAt": "2026-11-20T12:48:30+09:00",
    "days": [
     "2026-11-20"
    ]
@@ -46,12 +41,12 @@
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-11-20T10:51:01+09:00",
-   "checkedAt": "2026-11-20T10:51:01+09:00",
+   "lastSuccess": "2026-11-20T12:48:30+09:00",
+   "checkedAt": "2026-11-20T12:48:30+09:00",
    "days": [
     "2026-11-20"
    ]
   }
  },
- "updated": "2026-11-20T10:51:01+09:00"
+ "updated": "2026-11-20T12:48:30+09:00"
 }
