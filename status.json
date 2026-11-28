@@ -4,54 +4,53 @@
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-11-27T13:41:23+09:00",
-   "checkedAt": "2026-11-27T13:41:23+09:00",
+   "lastSuccess": "2026-11-28T11:53:16+09:00",
+   "checkedAt": "2026-11-28T11:53:16+09:00",
    "days": [
-    "2026-11-27",
     "2026-11-28",
     "2026-11-29"
    ]
   },
   "hongik": {
-   "ok": true,
-   "error": null,
-   "failStreak": 0,
+   "ok": false,
+   "error": "RuntimeError: 모든 페이지 실패: p=1: stale date 2026-11-23; p=2: stale date 2026-11-24; p=3: stale date 2026-11-25; p=4: stale date 2026-11-26; p=5: stale date 2026-11-27",
+   "failStreak": 1,
    "lastSuccess": "2026-11-27T13:41:23+09:00",
-   "checkedAt": "2026-11-27T13:41:23+09:00",
-   "days": [
-    "2026-11-27"
-   ]
+   "checkedAt": "2026-11-28T11:53:16+09:00"
   },
   "smu": {
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-11-27T13:41:23+09:00",
-   "checkedAt": "2026-11-27T13:41:23+09:00",
+   "lastSuccess": "2026-11-28T11:53:16+09:00",
+   "checkedAt": "2026-11-28T11:53:16+09:00",
    "days": [
-    "2026-11-27"
+    "2026-11-30",
+    "2026-12-01",
+    "2026-12-02",
+    "2026-12-03"
    ]
   },
   "snue": {
-   "ok": true,
-   "error": null,
-   "failStreak": 0,
+   "ok": false,
+   "error": "RuntimeError: 오늘 이후 메뉴가 없다 (주차 이동이 없어 이번 주만 보인다)",
+   "failStreak": 1,
    "lastSuccess": "2026-11-27T13:41:23+09:00",
-   "checkedAt": "2026-11-27T13:41:23+09:00",
-   "days": [
-    "2026-11-27"
-   ]
+   "checkedAt": "2026-11-28T11:53:16+09:00"
   },
   "syu": {
    "ok": true,
    "error": null,
    "failStreak": 0,
-   "lastSuccess": "2026-11-27T13:41:23+09:00",
-   "checkedAt": "2026-11-27T13:41:23+09:00",
+   "lastSuccess": "2026-11-28T11:53:16+09:00",
+   "checkedAt": "2026-11-28T11:53:16+09:00",
    "days": [
-    "2026-11-27"
+    "2026-11-30",
+    "2026-12-01",
+    "2026-12-02",
+    "2026-12-03"
    ]
   }
  },
- "updated": "2026-11-27T13:41:23+09:00"
+ "updated": "2026-11-28T11:53:16+09:00"
 }
